@@ -1,0 +1,24 @@
+{
+  "name": "api-monitores-gamer",
+  "version": "1.0.0",
+  "description": "API REST con Node.js, Express y TypeScript para gestionar un catálogo de monitores gamer (CRUD en memoria).",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "nodemon --watch src --ext ts --exec ts-node src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "lint": "tsc --noEmit"
+  },
+  "keywords": ["express", "typescript", "rest-api", "monitores-gamer"],
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.10",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
+  }
+}
