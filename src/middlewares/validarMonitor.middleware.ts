@@ -117,7 +117,21 @@ function validarCampos(
     }
   }
 
+  if (body.imagen !== undefined && body.imagen !== null && body.imagen !== "") {
+    if (typeof body.imagen !== "string" || !esImagenValida(body.imagen)) {
+      errores.push({
+        campo: "imagen",
+        mensaje: "Debe ser una ruta local (/images/...) o una URL http(s)",
+      });
+    }
+  }
+
   return errores;
+}
+
+function esImagenValida(valor: string): boolean {
+  const texto = valor.trim();
+  return texto.startsWith("/") || /^https?:\/\//i.test(texto);
 }
 
 function mensajeError(campo: string): string {

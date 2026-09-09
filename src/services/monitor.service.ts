@@ -18,6 +18,7 @@ let monitores: Monitor[] = [
     resolucion: "2560x1440",
     tipoPanel: "IPS",
     precio: 899.99,
+    imagen: "/images/asus-rog.png",
     creadoEn: new Date().toISOString(),
     actualizadoEn: new Date().toISOString(),
   },
@@ -30,6 +31,7 @@ let monitores: Monitor[] = [
     resolucion: "5120x1440",
     tipoPanel: "VA",
     precio: 1299.0,
+    imagen: "/images/samsung-odyssey.png",
     creadoEn: new Date().toISOString(),
     actualizadoEn: new Date().toISOString(),
   },
@@ -42,6 +44,7 @@ let monitores: Monitor[] = [
     resolucion: "2560x1440",
     tipoPanel: "OLED",
     precio: 999.99,
+    imagen: "/images/lg-oled.png",
     creadoEn: new Date().toISOString(),
     actualizadoEn: new Date().toISOString(),
   },
@@ -90,6 +93,7 @@ function crear(data: CrearMonitorDTO): Monitor {
   const nuevoMonitor: Monitor = {
     id: siguienteId++,
     ...data,
+    imagen: normalizarImagen(data.imagen),
     creadoEn: ahora,
     actualizadoEn: ahora,
   };
@@ -105,12 +109,18 @@ function actualizar(id: number, data: ActualizarMonitorDTO): Monitor {
   const actualizado: Monitor = {
     ...monitor,
     ...data,
-    id: monitor.id, // el id nunca se sobreescribe
+    id: monitor.id,
+    imagen: data.imagen !== undefined ? normalizarImagen(data.imagen) : monitor.imagen,
     actualizadoEn: new Date().toISOString(),
   };
 
   monitores = monitores.map((m) => (m.id === id ? actualizado : m));
   return actualizado;
+}
+
+function normalizarImagen(imagen?: string): string {
+  const valor = imagen?.trim();
+  return valor ? valor : "/images/placeholder.png";
 }
 
 /**

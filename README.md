@@ -1,6 +1,6 @@
 # API Monitores Gamer
 
-API REST desarrollada con **Node.js**, **Express** y **TypeScript** para gestionar un catálogo de monitores gamer. El backend recibe, valida, procesa y responde peticiones HTTP; no hay aplicación visual como prioridad. Los datos viven en un arreglo en memoria, organizados como un backend real por capas.
+API REST desarrollada con **Node.js**, **Express** y **TypeScript** para gestionar un catálogo de monitores gamer. Incluye una interfaz visual navegable y un backend por capas. Los datos viven en un arreglo en memoria.
 
 ## Tema
 
@@ -15,6 +15,7 @@ Universo creativo: catálogo de hardware para videojuegos. Cada monitor tiene al
 | `resolucion` | `string` | Formato `ANCHOxALTO` (ej. `2560x1440`) |
 | `tipoPanel` | `"IPS" \| "VA" \| "TN" \| "OLED"` | Unión de literales |
 | `precio` | `number` | Precio en USD |
+| `imagen` | `string` | Ruta local o URL de la foto |
 
 El servidor también genera `id`, `creadoEn` y `actualizadoEn`.
 
@@ -50,9 +51,14 @@ api-monitores-gamer/
 │   ├── routes/               # Endpoints REST
 │   ├── middlewares/          # requestId, logger, validación, errores
 │   ├── utils/                # AppError con statusCode
-│   ├── views/                # Portada HTML/JSON de GET /
-│   ├── app.ts                # Ensambla middlewares y rutas
+│   ├── views/                # Metadatos JSON de /api
+│   ├── app.ts                # Ensambla middlewares, API y frontend
 │   └── server.ts             # Arranque del proceso (listen)
+├── public/                   # Interfaz visual navegable
+│   ├── index.html
+│   ├── css/styles.css
+│   ├── js/app.js
+│   └── images/               # Hero, logo y fotos de monitores
 ├── requests.md               # Pruebas manuales GET/POST/PUT/PATCH/DELETE
 ├── package.json
 ├── tsconfig.json
@@ -93,7 +99,7 @@ npm install
 
 Por defecto: `http://localhost:3000` (variable `PORT` para cambiarlo).
 
-Al abrir el navegador en `/` se muestra una portada HTML. `curl` y Postman reciben JSON.
+La interfaz visual está en `/` (inicio), `/catalogo`, `/monitor/:id`, `/nuevo` y `/docs`. `curl` y Postman siguen usando `/api`.
 
 ## Endpoints
 
@@ -101,8 +107,9 @@ Prefijo de negocio: `/api`
 
 | Método | Ruta | Descripción | Éxito |
 |--------|------|-------------|-------|
-| GET | `/` | Portada (HTML o JSON según `Accept`) | 200 |
-| GET | `/api` | Información breve del servicio | 200 |
+| GET | `/` | Interfaz visual (inicio) | 200 |
+| GET | `/catalogo` | Catálogo con imágenes | 200 |
+| GET | `/api` | Información JSON del servicio | 200 |
 | GET | `/api/health` | Estado del servicio | 200 |
 | GET | `/api/monitores` | Listar (`?marca=` y `?tipoPanel=` opcionales) | 200 |
 | GET | `/api/monitores/:id` | Obtener uno | 200 |

@@ -1,15 +1,11 @@
 import { Router } from "express";
 import monitorRoutes from "./monitor.routes";
+import { apiInfo } from "../views/portada";
 
 const router = Router();
 
 router.get("/", (_req, res) => {
-  res.status(200).json({
-    status: "ok",
-    mensaje: "API de monitores gamer",
-    health: "/api/health",
-    monitores: "/api/monitores",
-  });
+  res.status(200).json(apiInfo);
 });
 
 router.get("/health", (_req, res) => {

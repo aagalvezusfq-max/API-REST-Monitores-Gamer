@@ -4,11 +4,18 @@ Todos los ejemplos asumen que el servidor corre localmente en `http://localhost:
 
 ---
 
-## 1. Portada — GET /
+## 1. Interfaz visual — GET /
 
-En el navegador (`http://localhost:3000/`) se muestra una portada HTML. `curl` y Postman reciben JSON.
+En el navegador (`http://localhost:3000/`) se abre **Nexus Displays**: inicio, catálogo con fotos, fichas, alta/edición y docs de la API.
 
-**Response — 200 OK**
+Rutas de la UI: `/`, `/catalogo`, `/monitor/:id`, `/nuevo`, `/editar/:id`, `/docs`.
+
+La documentación JSON del backend está en `GET /api`.
+
+**Request**
+```bash
+curl -i http://localhost:3000/api
+```
 ```json
 {
   "nombre": "API Monitores Gamer",

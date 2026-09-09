@@ -16,6 +16,7 @@ export interface Monitor {
   resolucion: string; // ej. "1920x1080", "2560x1440"
   tipoPanel: TipoPanel;
   precio: number; // en USD
+  imagen: string; // ruta local o URL
   creadoEn: string; // ISO timestamp
   actualizadoEn: string; // ISO timestamp
 }
@@ -31,6 +32,7 @@ export interface CrearMonitorDTO {
   resolucion: string;
   tipoPanel: TipoPanel;
   precio: number;
+  imagen?: string;
 }
 
 /**
