@@ -4,7 +4,23 @@ Todos los ejemplos asumen que el servidor corre localmente en `http://localhost:
 
 ---
 
-## 1. Health check
+## 1. Portada — GET /
+
+En el navegador (`http://localhost:3000/`) se muestra una portada HTML. `curl` y Postman reciben JSON.
+
+**Response — 200 OK**
+```json
+{
+  "nombre": "API Monitores Gamer",
+  "version": "1.0.0",
+  "health": "/api/health",
+  "catalogo": "/api/monitores"
+}
+```
+
+---
+
+## 1.1 Health check
 
 **Request**
 ```bash
@@ -309,7 +325,28 @@ curl -i -X DELETE http://localhost:3000/api/monitores/3
 
 ---
 
-## 8. Ruta inexistente
+## 8. JSON malformado
+
+**Request**
+```bash
+curl -i -X POST http://localhost:3000/api/monitores \
+  -H "Content-Type: application/json" \
+  -d '{ marca: sin-comillas }'
+```
+
+**Response — 400 Bad Request**
+```json
+{
+  "error": {
+    "mensaje": "El cuerpo de la solicitud no es un JSON válido",
+    "requestId": "b1a2c3d4-...."
+  }
+}
+```
+
+---
+
+## 9. Ruta inexistente
 
 **Request**
 ```bash

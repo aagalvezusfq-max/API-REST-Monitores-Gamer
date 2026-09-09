@@ -26,23 +26,44 @@ export function errorHandler(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _next: NextFunction
 ): void {
+  const requestId = req.requestId;
+
   if (err instanceof AppError) {
     res.status(err.statusCode).json({
       error: {
         mensaje: err.message,
         detalles: err.details,
-        requestId: req.requestId,
+        requestId,
+      },
+    });
+    return;
+  }
+
+  if (esErrorDeJsonInvalido(err)) {
+    res.status(400).json({
+      error: {
+        mensaje: "El cuerpo de la solicitud no es un JSON válido",
+        requestId,
       },
     });
     return;
   }
 
   // Error inesperado: no se filtran detalles internos al cliente.
-  console.error(`[${req.requestId}] Error no controlado:`, err);
+  console.error(`[${requestId}] Error no controlado:`, err);
   res.status(500).json({
     error: {
       mensaje: "Ocurrió un error interno en el servidor",
-      requestId: req.requestId,
+      requestId,
     },
   });
+}
+
+function esErrorDeJsonInvalido(err: unknown): boolean {
+  if (!err || typeof err !== "object") {
+    return false;
+  }
+
+  const error = err as { type?: string };
+  return error.type === "entity.parse.failed";
 }
