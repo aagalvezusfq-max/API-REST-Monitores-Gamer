@@ -1,6 +1,6 @@
 # API Monitores Gamer
 
-API REST desarrollada con **Node.js**, **Express** y **TypeScript** para gestionar un catálogo de monitores gamer. Incluye una interfaz visual navegable y un backend por capas. Los datos viven en un arreglo en memoria.
+API REST desarrollada con **Node.js**, **Express** y **TypeScript** para gestionar un catálogo de monitores gamer. El entregable principal es el backend por capas (rutas, controladores, servicios y modelos) con datos en memoria. Como extra se añadió una interfaz visual para facilitar la comprensión del CRUD.
 
 ## Tema
 
@@ -161,6 +161,17 @@ Log de consola (evidencia RA2 + RA4):
 ```
 
 Ejemplos completos de GET, POST, PUT, PATCH, DELETE y errores: [`requests.md`](./requests.md).
+
+## Extra: interfaz visual (no forma parte del requisito mínimo)
+
+El temario pide demostrar el backend, no una aplicación visual. Aun así se agregó una UI en `public/` para **entender mejor** cómo un cliente usa la API: listar, ver detalle, crear, editar y eliminar sin tener que armar cada `curl`.
+
+- No reemplaza a las capas REST ni a `requests.md`.
+- Las pantallas hablan con los mismos endpoints (`GET/POST/PUT/PATCH/DELETE /api/monitores`).
+- Rutas de la UI: `/` (inicio), `/catalogo`, `/monitor/:id`, `/nuevo`, `/editar/:id`, `/docs`.
+- Si se agrega un monitor desde **Agregar**, el navegador envía `POST /api/monitores`. El dato queda en memoria y aparece en el catálogo; al reiniciar el servidor se pierde (no hay base de datos).
+
+Sirve como apoyo didáctico: se ve el JSON de respuesta, los códigos de estado y el efecto del middleware de validación cuando el formulario envía datos incorrectos.
 
 ## Flujo Git
 
