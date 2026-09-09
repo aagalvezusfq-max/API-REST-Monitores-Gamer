@@ -77,8 +77,8 @@ Express procesa cada petición en el event loop. El middleware de logging no blo
 Requisitos: Node.js 18+ y npm.
 
 ```bash
-git clone <url-del-repositorio>
-cd api-monitores-gamer
+git clone https://github.com/aagalvezusfq-max/API-REST-Monitores-Gamer.git
+cd API-REST-Monitores-Gamer
 npm install
 ```
 
